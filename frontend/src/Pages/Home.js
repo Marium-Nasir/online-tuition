@@ -1,62 +1,46 @@
-import React from 'react';
-import {Box,Tabs,TabList,Tab,TabPanels,TabPanel,Text,Container} from '@chakra-ui/react'
-import Signup from '../Components/Authentication/Signup';
+import React,{useEffect} from 'react';
+import {Box} from '@chakra-ui/react';
 import Login from '../Components/Authentication/Login';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+//   const Navigate = useNavigate()
+//   useEffect(()=>{
+//     const user = JSON.parse(localStorage.getItem("user-info"));
+//     if(user && user.role === 'student' || user.role === 'Student'){
+//      Navigate('/student');
+//     }
+//     else if(user && user.role === 'tutor' || user.role === 'Tutor'){
+//      Navigate('/tutor');
+//     }
+//     else if(user && user.role === 'admin' || user.role === 'Admin'){
+//      Navigate('/admin');
+//     }
+//     else if(!user){
+//       Navigate('/')
+//     }
+//  },[Navigate]);
   return (
     <>
-       <Container>
       <Box
-        d="flex"
+        height={'100vh'}
+        display="flex"
         justifyContent="center"
         alignItems={'center'}
         border="3px solid white"
         borderRadius=".5rem"
         textAlign="center"
-        w="100%"
-        p={2}
-        boxSizing="border-box"
-        borderBottom={'none'}
-      >
-        <Text
-          fontFamily="Playfair Display"
-          fontSize="4xl"
-          textDecoration='underline'
-          textAlign={'center'}
-          color={'white'}
-        >
-         Online Tuition
-        </Text>
-      </Box>
-      <Box
-        d="flex"
-        justifyContent="center"
-        border="3px solid white"
-        borderRadius=".5rem"
-        textAlign="center"
-        w="100%"
+        w="100vw"
+        bgColor={{md:'whitesmoke',base:'lightblue'}}
+        // bgGradient={'linear(to-tr, black, gray.600,red.800)'}
         p={2}
         boxSizing="border-box"
         // mt="20px"
         borderTop={'none'}
+
       >
-        <Tabs variant="soft-rounded" colorScheme="gray">
-          <TabList mb={'1em'}>
-            <Tab w="50%" color="white" fontSize={"20px"}>Login</Tab>
-            <Tab w="50%" color="white" fontSize={"20px"}>Signup</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <Login />
-            </TabPanel>
-            <TabPanel>
-              <Signup />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        <Login />
       </Box>
-    </Container>
     </>
   )
 }

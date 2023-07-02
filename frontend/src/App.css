@@ -4,12 +4,37 @@
   box-sizing: border-box;
 }
 .App{
-  height: 120vh;
-  width: 100%;
-  background-image: url(bgimage.jpg);
-  background-size:cover;
-  background-repeat: no-repeat;
+  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
+.userAvatar{
+  /* height:30px ;
+  width: 40px; */
+  /* padding: 10%; */
+  border: 5px solid green;
+  border-radius: 5rem;
+  margin-bottom: 5%;
+  background-image: url(userAvatar.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.sideimage{
+  background: url('loginside.png'),#A0C49D;
+  /* background-color: transparent; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.sideimagesignup{
+  /* background-image: url(sigupbg.jpg); */
+  background:url('sigupbg.jpg'),#A0C49D;
+  /* background-color: transparent; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  }
+  .tutorbtns{
+    margin-top: 15%;
+    margin-left: 6%;
+  }

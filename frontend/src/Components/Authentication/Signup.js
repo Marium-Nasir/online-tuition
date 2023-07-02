@@ -11,11 +11,12 @@ import {
   RadioGroup,
   Box,
   Stack,
+  Text,
+  Heading,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
 import axios from "axios";
-
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState();
@@ -30,14 +31,20 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
+  const navigate = useNavigate()
+
+  const signinNavigate = (e)=>{
+    // e.preventDefault();
+    navigate('/')
+  }
+
   const handleClick = () => setShow(!show);
- 
 
   const submitHandler = async () => {
     setLoading(true);
     if (value === "1") {
       setRole("Student");
-    } else if(value === "2"){
+    } else if (value === "2") {
       setRole("Tutor");
     }
     if (
@@ -83,15 +90,13 @@ const Signup = () => {
         // return;
         localStorage.setItem("user-info", JSON.stringify(data));
         setLoading(false);
-        if(data.role === "admin"){
-          window.location.href = '/admin'
-         }
-         else if(data.role === "student"){
-           window.location.href = '/student'
-          }
-          else{
-           window.location.href = '/tutor'
-          }
+        if (data.role === "admin") {
+          window.location.href = "/admin";
+        } else if (data.role === "student") {
+          window.location.href = "/student";
+        } else {
+          window.location.href = "/tutor";
+        }
       } catch (err) {
         toast({
           title: "Error Occured",
@@ -117,121 +122,219 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <VStack spacing={"5px"} fontFamily={"Playfair Display"}>
-        <Box display={"flex"}>
-          <FormControl id="fname" isRequired>
-            <FormLabel color={"white"}>Enter First Name</FormLabel>
-            <Input
-              border={"2px solid gray"}
-              color={"white"}
-              type={"text"}
-              onChange={(e) => setFname(e.target.value)}
-            />
-          </FormControl>
-
-          <FormControl id="lname" isRequired>
-            <FormLabel color={"white"}>Enter Last Name</FormLabel>
-            <Input
-              ml={"5%"}
-              border={"2px solid gray"}
-              color={"white"}
-              type={"text"}
-              onChange={(e) => setLname(e.target.value)}
-            />
-          </FormControl>
+    <>
+      <Box
+        height={"100%"}
+        width={"90%"}
+        border={"5px inset green"}
+        borderRadius={"lg"}
+        display={"flex"}
+      >
+        <Box 
+        className="sideimagesignup" 
+        height={"100%"} 
+        width={{md:"43%",base:'0%'}} 
+        pt={4}>
+          <Heading
+          display={{base:'none'}}
+          >Welcome To Online Tuition</Heading>
         </Box>
-
-        <FormControl id="phone" isRequired>
-          <FormLabel color={"white"}>Enter Contact Number</FormLabel>
-          <Input
-            border={"2px solid gray"}
-            color={"white"}
-            type={"text"}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-        </FormControl>
-
-        <FormControl id="role" isRequired>
-          <FormLabel color={"white"}>Select Role</FormLabel>
-
-          <RadioGroup onChange={setvalue} value={value}>
-            <Stack direction="row" color={'white'}>
-              <Radio value="1">Student</Radio>
-              <Radio value="2">Tutor</Radio>
-            </Stack>
-          </RadioGroup>
-        </FormControl>
-
-        <FormControl id="email" isRequired>
-          <FormLabel color={"white"}>Enter Your Email</FormLabel>
-          <Input
-            border={"2px solid gray"}
-            color={"white"}
-            type={"email"}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormControl>
-        <Box display={"flex"}>
-          <FormControl id="password" isRequired>
-            <FormLabel color={"white"}>Enter Password</FormLabel>
-            <InputGroup>
-              <Input
-                border={"2px solid gray"}
-                color={"white"}
-                type={show ? "text" : "password"}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <InputRightElement>
-                <Button
-                  h="1.75rem"
-                  size="lg"
-                  mr={"1.5rem"}
-                  onClick={handleClick}
-                >
-                  {show ? "Hide" : "Show"}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </FormControl>
-
-          <FormControl id="cpassword" isRequired>
-            <FormLabel color={"white"}>Enter Confirm Password</FormLabel>
-            <InputGroup>
-              <Input
-                ml={"5%"}
-                border={"2px solid gray"}
-                color={"white"}
-                type={show ? "text" : "password"}
-                onChange={(e) => setCPassword(e.target.value)}
-              />
-              <InputRightElement>
-                <Button
-                  h="1.75rem"
-                  size="md"
-                  mr={"1.5rem"}
-                  onClick={handleClick}
-                >
-                  {show ? "Hide" : "Show"}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-          </FormControl>
-        </Box>
-
-        <Button
-          colorScheme="teal"
-          variant="outline"
-          size="lg"
-          color={"white"}
-          width={"50%"}
-          onClick={submitHandler}
-          isLoading={loading}
+        <Box
+          className="loginside"
+          height={"100%"}
+          width={{md:"57%",base:'100%'}}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={"column"}
+          // m={10}
+          bgGradient={'linear(to-tr, black, green.600,#A0C49D)'}
+          pt={3}
         >
-          Signup
-        </Button>
-      </VStack>
-    </div>
+          <Box 
+          className="userAvatar"
+          p={{base:'15%',md:'10%'}}
+          ></Box>
+          <Text mb={7} textColor={"lightgray"} fontWeight={"bold"} fontSize={"2xl"}>
+            Sign-up
+          </Text>
+
+          <VStack spacing={{base:"20px",md:'4px'}} fontFamily={"Playfair Display"}>
+            <Box 
+            display={"flex"}
+            flexDirection={{md:'row',base:'column'}}
+            >
+              <FormControl id="fname" isRequired>
+                <Input
+                  placeholder="Enter First Name"
+                  _placeholder={{ color: "lightgray" }}
+                  border={"2px solid lightgray"}
+                  borderTop={"none"}
+                  borderRight={"none"}
+                  borderLeft={"none"}
+                  borderColor={"green.900"}
+                  color={"lightgray"}
+                  type={"text"}
+                  onChange={(e) => setFname(e.target.value)}
+                />
+              </FormControl>
+
+              <FormControl id="lname" isRequired>
+                <Input
+                  // ml={"5%"}
+                  placeholder="Enter Last Name"
+                  _placeholder={{ color: "lightgray" }}
+                  border={"2px solid lightgray"}
+                  borderTop={"none"}
+                  borderRight={"none"}
+                  borderLeft={"none"}
+                  borderColor={"green.900"}
+                  color={"lightgray"}
+                  type={"text"}
+                  onChange={(e) => setLname(e.target.value)}
+                />
+              </FormControl>
+            </Box>
+
+            <FormControl id="phone" isRequired>
+              <Input
+                placeholder="Enter Phone Number"
+                _placeholder={{ color: "lightgray" }}
+                border={"2px solid lightgray"}
+                borderTop={"none"}
+                borderRight={"none"}
+                borderLeft={"none"}
+                borderColor={"green.900"}
+                color={"lightgray"}
+                type={"text"}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </FormControl>
+
+            <FormControl id="role" isRequired>
+              <RadioGroup onChange={setvalue} value={value}>
+                <Stack direction="row" color={"lightgray"}>
+                  <Radio value="1">Student</Radio>
+                  <Radio value="2">Tutor</Radio>
+                </Stack>
+              </RadioGroup>
+            </FormControl>
+
+            <FormControl id="email" isRequired>
+              <Input
+                placeholder="Enter Your Email"
+                _placeholder={{ color: "lightgray" }}
+                border={"2px solid lightgray"}
+                borderTop={"none"}
+                borderRight={"none"}
+                borderLeft={"none"}
+                borderColor={"green.900"}
+                color={"lightgray"}
+                type={"email"}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormControl>
+            <Box 
+            display={"flex"}
+              flexDirection={{md:'row',base:'column'}}
+              >
+              <FormControl>
+                <InputGroup>
+                  <Input
+                    placeholder="Enter Password"
+                    _placeholder={{ color: "lightgray" }}
+                    border={"2px solid lightgray"}
+                    borderTop={"none"}
+                    borderRight={"none"}
+                    borderLeft={"none"}
+                    borderColor={"green.900"}
+                    color={"lightgray"}
+                    type={show ? "text" : "password"}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <Button
+                      h="1.75rem"
+                      size="lg"
+                      mr={"1.5rem"}
+                      onClick={handleClick}
+                    >
+                      {show ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+
+              <FormControl id="cpassword" isRequired>
+                <InputGroup>
+                  <Input
+                    ml={{md:"5%",base:'0%'}}
+                    placeholder="Enter Confirm Password"
+                    _placeholder={{ color: "lightgray" }}
+                    border={"2px solid lightgray"}
+                    borderTop={"none"}
+                    borderRight={"none"}
+                    borderLeft={"none"}
+                    borderColor={"green.900"}
+                    color={"lightgray"}
+                    type={show ? "text" : "password"}
+                    onChange={(e) => setCPassword(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <Button
+                      h="1.75rem"
+                      size="md"
+                      mr={"1.5rem"}
+                      onClick={handleClick}
+                    >
+                      {show ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+            </Box>
+           <Box 
+           display={'flex'}
+           flexDirection={{md:'row',base:'column'}}
+           >
+            <Button
+              colorScheme="green"
+              bgColor="lightlightgray"
+              size="md"
+              mr={{md:'5',base:'0%'}}
+              mt={3}
+              fontWeight={"bold"}
+              color={"green.900"}
+              borderWidth={2}
+              pr={20}
+              pl={20}
+              fontSize={{base:'18px',md:'22px'}}
+              onClick={submitHandler}
+              isLoading={loading}
+            >
+              Sign-up
+            </Button>
+            <Button
+              colorScheme="green"
+              bgColor="lightlightgray"
+              size="md"
+              mt={3}
+              pr={20}
+              pl={20}
+              fontWeight={"bold"}
+              color={"green.900"}
+              borderWidth={2}
+              fontSize={{base:'18px',md:'22px'}}
+              onClick={signinNavigate}
+              isLoading={loading}
+            >
+              Sign-in
+            </Button>
+            </Box>
+          </VStack>
+        </Box>
+      </Box>
+    </>
   );
 };
 

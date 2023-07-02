@@ -1,20 +1,28 @@
 import React from 'react';
-import {Box} from '@chakra-ui/react';
-// import Navbar from '../Components/Navbar';
+import {Box,Button} from '@chakra-ui/react';
+import AdminNav from '../Components/AdminPage/AdminNav';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
+  // const data = localStorage.getItem('user-info')
+  // if(data){
+  //   window.location.href = '/admin'
+  // }else{
+  //   window.location.href = '/'
+  // }
+  const Navigate = useNavigate()
   return (
     <>
-     <Box
-     height={'100%'}
+     {/* <Box
+    //  height={'100%'}
      width={'100%'}
      display={'flex'}
      flex={'row'}
      justifyContent={'center'}
-    //  alignItems={'center'}
-     >
-{/* <Navbar/> */}
-     </Box>
+     > */}
+     <AdminNav/>
+    
+     {/* </Box> */}
     </>
   )
 }

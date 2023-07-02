@@ -3,16 +3,15 @@ const proposalSchema = new mongoose.Schema(
   {
     tutorName: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      ref: "UserModel",
     },
     status:{
        type:String,
        default:"pending",
     },
-    users: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    ],
+    requestId: 
+      { type: mongoose.Schema.Types.ObjectId, ref: "requestModel"},
+    
     description: { type: String, required: true },
     fees: { type: String, required: true },
   },

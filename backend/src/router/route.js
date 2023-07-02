@@ -5,9 +5,9 @@ const {
   login,
   getAllUsers,
 } = require("../controller/userController");
-const { createRequest,updateRequest, deleteRequest,getAllRequests  } = require("../controller/requestController");
-const { createProposal } = require("../controller/proposalController");
-const { accessByRole } = require("../middleware/protectByRole");
+const { createRequest,updateRequest, deleteRequest,getAllRequests,getAllRequestsForAll} = require("../controller/requestController");
+const { createProposal,getProposals ,updateProposal,deleteProposal,getAllProposals,getSpecificReqPro} = require("../controller/proposalController");
+const {accessByStudent,accessByAdmin,accessByTutor,accessByStudentOrAdmin,accessByTutorOrAdmin} = require("../middleware/protectByRole");
 const protect = require("../middleware/protect");
 
 // for login And Signup
@@ -15,12 +15,21 @@ router.route("/").post(registerUser).get(protect, getAllUsers);
 router.route("/login").post(login);
 
 // for Student Request
-router.route("/createrequest").post(protect, accessByRole, createRequest);
-router.route("/getallrequests").get(protect, accessByRole, getAllRequests);
-router.route("/updaterequest").put(protect, accessByRole, updateRequest);
-router.route("/deleterequest").delete(protect, accessByRole, deleteRequest);
+router.route("/createrequest").post(protect, accessByStudent,createRequest);
+router.route("/getallrequests").get(protect, accessByStudent,getAllRequests);
+router.route("/updaterequest").patch(protect, accessByStudentOrAdmin, updateRequest);
+router.route("/deleterequest").delete(protect,accessByStudentOrAdmin,deleteRequest);
+router.route("/getproposalforstu").get(protect,accessByStudent, getSpecificReqPro);
+
 
 // for tutor Proposals
-router.route("/createproposal").post(protect, accessByRole, createProposal);
+router.route("/createproposal").post(protect, accessByTutor, createProposal);
+router.route("/getproposals").get(protect, accessByTutor, getProposals);
+router.route("/updateproposal").patch(protect, accessByTutorOrAdmin, updateProposal);
+router.route("/deleteproposal").delete(protect,accessByTutorOrAdmin, deleteProposal);
 
+
+//for admin
+router.route("/getallrequestsforall").get(protect,accessByTutorOrAdmin, getAllRequestsForAll);
+router.route("/getallproposalsforall").get(protect,accessByAdmin,getAllProposals);
 module.exports = router;

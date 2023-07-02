@@ -29,24 +29,22 @@ const createRequest = async (req, res) => {
 
 const updateRequest = async (req, res) => {
   try {
-    const { requestId, requestName, subject, description, fees } = req.body;
-    
-    const data = await studentRequest.find({ studentName: { $eq: req.user._id } });
-    if (data) {
+    const { updaterequestName, updatesubject, updatedescription, updatefees } = req.body;
+    const requestId = req.query.updId;
       const updateData = await studentRequest.findByIdAndUpdate(
-         requestId ,
+        { _id: requestId } ,
         {
-          requestName,
-          subject,
-          description,
-          fees,
+          reqName:updaterequestName,
+          subject:updatesubject,
+          description:updatedescription,
+          fees:updatefees,
         },
         {
           new: true,
         }
       ).populate('studentName','-password');
       res.status(200).send(updateData);
-    }
+    // }
   } catch (err) {
     console.log(err);
     res.status(400).send(err);
@@ -55,19 +53,10 @@ const updateRequest = async (req, res) => {
 
 const deleteRequest = async (req, res) => {
   try {
-    const { reqId } = req.body;
-
-    const validData = await studentRequest.find({ studentName: { $eq: req.user._id } })
-
-    if(validData){
-        const delData = await studentRequest.deleteOnes(reqId);
+    const requestId = req.query.dltId;
+        const delData = await studentRequest.deleteOne({_id:requestId});
         res.status(200).send(delData);
-    }
-
-    else{
-        console.log("this is not your request");
-    }
-
+   
   } catch (err) {
     console.log(err);
     res.status(400).send(err);
@@ -91,4 +80,21 @@ const getAllRequests = async (req, res) => {
   }
 };
 
-module.exports = { createRequest, updateRequest, deleteRequest,getAllRequests };
+const getAllRequestsForAll = async (req, res) => {
+  try {
+    const reqData = await studentRequest
+      .find()
+      .populate("studentName", "-password")
+      .populate("reqName")
+      .populate("subject")
+      .populate("description")
+      .populate("fees").sort({'updatedAt':-1})
+
+      res.status(200).send(reqData);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+};
+
+module.exports = { createRequest, updateRequest, deleteRequest,getAllRequests,getAllRequestsForAll };
