@@ -6,6 +6,9 @@ import TutorPage from "./Pages/TutorPage";
 import StudentPage from "./Pages/StudentPage";
 import SignupPage from "./Pages/SignupPage";
 import Layout from "./Components/Layout";
+import AccessByAdmin from "./Components/AccessByRole/AccessByAdmin";
+import AccessByStudent from "./Components/AccessByRole/AccessByStudent";
+import AccessByTutor from "./Components/AccessByRole/AccessByTutor";
 
 function App() {
   return (
@@ -17,21 +20,12 @@ function App() {
 
         {/* private routes */}
       <Route path="/" element={<Layout />}>
-        <Route path="admin" element={<AdminPage />} />
-        <Route path="student" element={<StudentPage />} />
-        <Route path="tutor" element={<TutorPage />} />
+        <Route path="admin" element={<AccessByAdmin><AdminPage /></AccessByAdmin>} />
+        <Route path="student" element={<AccessByStudent><StudentPage /></AccessByStudent>} />
+        <Route path="tutor" element={<AccessByTutor><TutorPage /></AccessByTutor>} />
       </Route>
     </Routes>
     </div>
-    // <div className="App">
-    //     <Routes>
-    //       <Route path="/" element={<Home />} exact />
-    //       <Route exact  path="/signuppage" element={<SignupPage />}  />
-    //       <Route exact path="/admin" element={<AdminPage />} />
-    //       <Route exact path="/student" element={<StudentPage />} />
-    //       <Route exact path="/tutor" element={<TutorPage />} />
-    //     </Routes>
-    // </div>
   );
 }
 
