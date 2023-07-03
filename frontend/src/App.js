@@ -20,8 +20,9 @@ function App() {
 
         {/* private routes */}
       <Route path="/" element={<Layout />}>
-        <Route path="admin" element={<AccessByAdmin><AdminPage /></AccessByAdmin>} />
+        <Route exact path="admin" element={<AccessByAdmin><AdminPage /></AccessByAdmin>} />
         <Route path="student" element={<AccessByStudent><StudentPage /></AccessByStudent>} />
+        {/* <Route path="student" element={<StudentPage />} /> */}
         <Route path="tutor" element={<AccessByTutor><TutorPage /></AccessByTutor>} />
       </Route>
     </Routes>

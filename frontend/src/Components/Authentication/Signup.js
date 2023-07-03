@@ -31,13 +31,9 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  const navigate = useNavigate()
+  const Navigate = useNavigate()
 
-  const signinNavigate = (e)=>{
-    // e.preventDefault();
-    navigate('/')
-  }
-
+ 
   const handleClick = () => setShow(!show);
 
   const submitHandler = async () => {
@@ -90,12 +86,14 @@ const Signup = () => {
         // return;
         localStorage.setItem("user-info", JSON.stringify(data));
         setLoading(false);
-        if (data.role === "admin") {
-          window.location.href = "/admin";
-        } else if (data.role === "student") {
-          window.location.href = "/student";
+        if ((data && data.role === "student") || data.role === "Student") {
+          Navigate("/student");
+        } else if ((data && data.role === "admin") || data.role === "Admin") {
+          Navigate("/admin");
+        } else if ((data && data.role === "Tutor") || data.role === "tutor") {
+          Navigate("/tutor");
         } else {
-          window.location.href = "/tutor";
+          Navigate("/");
         }
       } catch (err) {
         toast({
@@ -315,6 +313,7 @@ const Signup = () => {
               Sign-up
             </Button>
             <Button
+              onClick={() => Navigate('/')}
               colorScheme="green"
               bgColor="lightlightgray"
               size="md"
@@ -325,7 +324,6 @@ const Signup = () => {
               color={"green.900"}
               borderWidth={2}
               fontSize={{base:'18px',md:'22px'}}
-              onClick={signinNavigate}
               isLoading={loading}
             >
               Sign-in

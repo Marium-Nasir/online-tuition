@@ -4,22 +4,20 @@ import Login from '../Components/Authentication/Login';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-//   const Navigate = useNavigate()
-//   useEffect(()=>{
-//     const user = JSON.parse(localStorage.getItem("user-info"));
-//     if(user && user.role === 'student' || user.role === 'Student'){
-//      Navigate('/student');
-//     }
-//     else if(user && user.role === 'tutor' || user.role === 'Tutor'){
-//      Navigate('/tutor');
-//     }
-//     else if(user && user.role === 'admin' || user.role === 'Admin'){
-//      Navigate('/admin');
-//     }
-//     else if(!user){
-//       Navigate('/')
-//     }
-//  },[Navigate]);
+  const Navigate = useNavigate()
+  useEffect(()=>{
+    let user = JSON.parse(localStorage.getItem("user-info"))
+    if (!user) Navigate('/')
+    else if(user && user.role === 'student' || user.role === "Student"){
+      Navigate('/student')
+    }
+    else if(user && user.role === 'admin' || user.role === "Admin"){
+      Navigate('/admin')
+    }
+    else if(user && user.role === 'tutor' || user.role === "Tutor"){
+      Navigate('/tutor')
+    }
+ },[Navigate]);
   return (
     <>
       <Box

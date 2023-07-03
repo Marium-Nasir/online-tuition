@@ -62,13 +62,10 @@ const Login = () => {
       localStorage.setItem("user-info", JSON.stringify(data));
       setLoading(false);
       if ((data && data.role === "student") || data.role === "Student") {
-        //  window.location.href = '/student'
         Navigate("/student");
       } else if ((data && data.role === "admin") || data.role === "Admin") {
-        // window.location.href = '/admin'
         Navigate("/admin");
       } else if ((data && data.role === "Tutor") || data.role === "tutor") {
-        // window.location.href = '/tutor'
         Navigate("/tutor");
       } else {
         Navigate("/");
@@ -181,9 +178,7 @@ const Login = () => {
               Sign-in
             </Button>
             <Button
-              onClick={() => {
-                Navigate("/signuppage");
-              }}
+              onClick={() => {Navigate('/signuppage')}}
               colorScheme="green"
               bgColor="lightgray"
               size="md"
