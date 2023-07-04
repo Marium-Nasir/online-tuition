@@ -29,6 +29,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import StuReq from "./StuReq";
 import Proposal from "./Proposal";
 import CreateRequest from "./CreateRequest";
+import { useNavigate } from "react-router-dom";
 
 const StudentNav = () => {
   const { user, stuReq, setstuReq, proposal, setproposal } =
@@ -41,6 +42,7 @@ const StudentNav = () => {
   const [updatedescription, setupdatedescription] = useState();
   const [updatefees, setupdatefees] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const Navigate = useNavigate()
 
   console.log("from nav" + requestId);
   const getallrequestsforstu = async () => {
@@ -196,7 +198,7 @@ const StudentNav = () => {
 
   const logoutfun = () => {
     localStorage.removeItem("user-info");
-    window.location.href = "/";
+    Navigate('/');
   };
 
   const backToRequest = () => {
@@ -230,7 +232,7 @@ const StudentNav = () => {
           <NavHeading />
           <div className="tutorbtns">
             <Profile />
-            <CreateRequest />
+            <CreateRequest getallrequestsforstu={getallrequestsforstu}/>
             <Button
               bg={"transparent"}
               color={"white"}
@@ -390,6 +392,7 @@ const StudentNav = () => {
             </ModalContent>
           </Modal>
         </Box>
+    
       </Box>
     </>
   );

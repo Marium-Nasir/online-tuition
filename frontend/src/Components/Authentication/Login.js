@@ -13,7 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link, useLocation,Navigate } from "react-router-dom";
 
 const Login = () => {
   // const {setUser} = useAuth()
@@ -62,13 +62,17 @@ const Login = () => {
       localStorage.setItem("user-info", JSON.stringify(data));
       setLoading(false);
       if ((data && data.role === "student") || data.role === "Student") {
-        Navigate("/student");
+        // Navigate("/student");
+        window.location.href='/student'
       } else if ((data && data.role === "admin") || data.role === "Admin") {
-        Navigate("/admin");
+        // Navigate("/admin");
+        window.location.href='/admin'
       } else if ((data && data.role === "Tutor") || data.role === "tutor") {
-        Navigate("/tutor");
+        // Navigate("/tutor");
+        window.location.href='/tutor'
       } else {
-        Navigate("/");
+        window.location.href='/'
+        // Navigate("/");
       }
     } catch (err) {
       toast({
@@ -178,7 +182,7 @@ const Login = () => {
               Sign-in
             </Button>
             <Button
-              onClick={() => {Navigate('/signuppage')}}
+              onClick={() => Navigate('/signuppage')}
               colorScheme="green"
               bgColor="lightgray"
               size="md"

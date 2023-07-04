@@ -21,7 +21,7 @@ import {
   import axios from 'axios';
 
 const CreateRequest = () => {
-  const { user,stuReq, setstuReq } =
+  const { user, setstuReq } =
   useContext(InfoContext);
   const [reqName,setreqName] = useState();
   const [subject,setsubject] = useState();
@@ -30,7 +30,7 @@ const CreateRequest = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast()
 
-  const createRequest = async () => {
+  const createRequest = async (getallrequestsforstu) => {
     if (!reqName||!subject||!description || !fees) {
       toast({
         title: "Please Fill All The Fields",
@@ -54,8 +54,6 @@ const CreateRequest = () => {
         config
       );
 
-      setstuReq(data);
-
       console.log(data);
       toast({
         title: "Request Created Successfuly",
@@ -64,6 +62,8 @@ const CreateRequest = () => {
         isClosable: true,
         position: "top",
       });
+      setstuReq(data);
+      getallrequestsforstu()
     } catch (err) {
       toast({
         title: "Error Occured",

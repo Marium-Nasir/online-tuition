@@ -15,12 +15,11 @@ function App() {
     <div className="App">
     <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<Home />} exact />
-        <Route exact path="/signuppage" element={<SignupPage />} />
-
+        <Route path="/" element={<Home />} exact/>
+        <Route  path="/signuppage" element={<SignupPage />} exact/>
         {/* private routes */}
       <Route path="/" element={<Layout />}>
-        <Route exact path="admin" element={<AccessByAdmin><AdminPage /></AccessByAdmin>} />
+        <Route path="admin" element={<AccessByAdmin><AdminPage /></AccessByAdmin>} />
         <Route path="student" element={<AccessByStudent><StudentPage /></AccessByStudent>} />
         {/* <Route path="student" element={<StudentPage />} /> */}
         <Route path="tutor" element={<AccessByTutor><TutorPage /></AccessByTutor>} />
