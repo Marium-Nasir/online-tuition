@@ -10,7 +10,7 @@ const InfoProvider = ({children}) => {
     useEffect(()=>{
         const userInfo = JSON.parse(localStorage.getItem('user-info'));
         setuser(userInfo);
-        if(!userInfo) Navigate('/')
+        // if(!userInfo) Navigate('/')
     },[Navigate])
   return (
    <InfoContext.Provider value={{user,setuser,stuReq,setstuReq,proposal,setproposal}}>
